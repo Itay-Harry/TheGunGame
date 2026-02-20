@@ -1,3 +1,42 @@
+    <!-- PRACTICE MENU -->
+    <div id="practice-menu" class="screen">
+        <div class="screen-header">
+            <button class="btn-back" id="btn-back-practice">← BACK</button>
+            <h2>🎯 PRACTICE MODE</h2>
+        </div>
+        <div class="play-options">
+            <div class="option-group">
+                <h3>BOT DIFFICULTY</h3>
+                <div class="mode-select">
+                    <button class="mode-btn active" data-diff="easy">🟢 Easy</button>
+                    <button class="mode-btn" data-diff="medium">🟡 Medium</button>
+                    <button class="mode-btn" data-diff="hard">🔴 Hard</button>
+                    <button class="mode-btn" data-diff="insane">💀 Insane</button>
+                </div>
+            </div>
+            <div class="option-group">
+                <h3>WEAPON OPTIONS</h3>
+                <div class="mode-select">
+                    <button class="mode-btn active" data-weapon="any">Any Weapon</button>
+                    <button class="mode-btn" data-weapon="next">Next Unlock</button>
+                    <button class="mode-btn" data-weapon="random">Random Every 30s</button>
+                </div>
+                <label><input type="checkbox" id="infinite-ammo"> Infinite Ammo</label>
+                <label><input type="checkbox" id="no-recoil"> No Recoil</label>
+                <label><input type="checkbox" id="headshot-only"> Headshot Only</label>
+            </div>
+            <div class="option-group">
+                <h3>TRAINING MAP</h3>
+                <div class="map-select">
+                    <button class="map-card active" data-map="aim">🎯 Aim Map</button>
+                    <button class="map-card" data-map="sniper">🔭 Sniper Lane</button>
+                    <button class="map-card" data-map="parkour">🏃 Parkour</button>
+                    <button class="map-card" data-map="range">🎯 Shooting Range</button>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-large" id="btn-start-practice">START PRACTICE</button>
+        </div>
+    </div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,6 +61,7 @@
             </div>
             <div class="menu-buttons">
                 <button class="btn btn-primary" id="btn-play">▶ PLAY</button>
+                <button class="btn btn-primary" id="btn-practice">🎯 PRACTICE MODE</button>
                 <button class="btn btn-secondary" id="btn-customize">🎨 CUSTOMIZE</button>
                 <button class="btn btn-secondary" id="btn-challenges">📋 CHALLENGES</button>
                 <button class="btn btn-secondary" id="btn-achievements">🏆 ACHIEVEMENTS</button>
@@ -44,6 +84,7 @@
                     <button class="mode-btn active" data-mode="ffa">💀 Free-for-All</button>
                     <button class="mode-btn" data-mode="tdm">👥 Team Deathmatch</button>
                     <button class="mode-btn" data-mode="ctf">🚩 Capture the Flag</button>
+                    <button class="mode-btn" data-mode="practice">🎯 Practice Mode</button>
                 </div>
             </div>
             <div class="option-group">

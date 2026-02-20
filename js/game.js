@@ -1,4 +1,13 @@
 class Game {
+		// --- PRACTICE MODE ENTRY POINT ---
+		startPracticeMode(settings) {
+			// For now, just log settings and show a notification
+			console.log('Starting Practice Mode with:', settings);
+			if (this.ui && this.ui.showNotification) {
+				this.ui.showNotification('Practice Mode coming soon! (Settings logged in console)', '#00ccff');
+			}
+			// TODO: Implement full practice mode logic here
+		}
 	constructor(canvas, ui, progression) {
 		this.canvas = canvas;
 		this.ctx = canvas.getContext('2d');

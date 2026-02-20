@@ -42,10 +42,64 @@ class UI {
     }
 
     setupMenuListeners() {
+                // Practice Mode start button
+                on('btn-start-practice', () => {
+                    if (this.onStartPractice) this.onStartPractice({
+                        botDifficulty: this.practiceBotDifficulty || 'easy',
+                        weaponMode: this.practiceWeaponMode || 'any',
+                        map: this.practiceMap || 'aim',
+                        infiniteAmmo: !!this.practiceInfiniteAmmo,
+                        noRecoil: !!this.practiceNoRecoil,
+                        headshotOnly: !!this.practiceHeadshotOnly
+                    });
+                });
+        // Practice menu back button
+        on('btn-back-practice', () => this.showScreen('main-menu'));
+
+        // Practice menu option selection (basic, to be expanded)
+        const practiceDiffBtns = document.querySelectorAll('#practice-menu .mode-select [data-diff]');
+        practiceDiffBtns.forEach(btn => {
+            btn.onclick = () => {
+                practiceDiffBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.practiceBotDifficulty = btn.dataset.diff;
+            };
+        });
+
+        const practiceWeaponBtns = document.querySelectorAll('#practice-menu .mode-select [data-weapon]');
+        practiceWeaponBtns.forEach(btn => {
+            btn.onclick = () => {
+                practiceWeaponBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.practiceWeaponMode = btn.dataset.weapon;
+            };
+        });
+
+        const practiceMapBtns = document.querySelectorAll('#practice-menu .map-card');
+        practiceMapBtns.forEach(btn => {
+            btn.onclick = () => {
+                practiceMapBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.practiceMap = btn.dataset.map;
+            };
+        });
+
+        // Practice toggles
+        this.practiceInfiniteAmmo = false;
+        this.practiceNoRecoil = false;
+        this.practiceHeadshotOnly = false;
+        const infAmmo = document.getElementById('infinite-ammo');
+        if (infAmmo) infAmmo.onchange = (e) => { this.practiceInfiniteAmmo = e.target.checked; };
+        const noRecoil = document.getElementById('no-recoil');
+        if (noRecoil) noRecoil.onchange = (e) => { this.practiceNoRecoil = e.target.checked; };
+        const hsOnly = document.getElementById('headshot-only');
+        if (hsOnly) hsOnly.onchange = (e) => { this.practiceHeadshotOnly = e.target.checked; };
+
         // Main menu buttons
         const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
 
         on('btn-play', () => { this.showScreen('play-menu'); this.buildMapSelect(); Sound.ensureReady(); });
+        on('btn-practice', () => { this.showScreen('practice-menu'); this.buildPracticeMenu && this.buildPracticeMenu(); Sound.ensureReady(); });
         on('btn-customize', () => { this.showScreen('customize-screen'); this.buildCustomize(); Sound.ensureReady(); });
         on('btn-challenges', () => { this.showScreen('challenges-screen'); this.buildChallenges(); });
         on('btn-achievements', () => { this.showScreen('achievements-screen'); this.buildAchievements(); });
