@@ -1,0 +1,266 @@
+#leaderboard-screen {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+#leaderboard-screen.active {
+    display: flex;
+}
+
+/* ── Container ── */
+.lb-container {
+    position: relative;
+    background: linear-gradient(145deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+    border: 2px solid #ffcc00;
+    border-radius: 20px;
+    padding: 0;
+    width: 850px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 60px rgba(255, 204, 0, 0.15), inset 0 0 60px rgba(0, 0, 0, 0.3);
+}
+
+/* ── Header ── */
+.lb-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 24px 14px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 204, 0, 0.15);
+    background: rgba(0, 0, 0, 0.3);
+}
+.lb-title {
+    font-size: 26px;
+    color: #ffcc00;
+    text-align: center;
+    margin: 0;
+    text-shadow: 0 0 12px rgba(255, 204, 0, 0.4);
+    letter-spacing: 1px;
+}
+.lb-close {
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+    line-height: 36px;
+    text-align: center;
+    color: #999;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transition: all 0.2s;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+}
+.lb-close:hover {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.15);
+    border-color: rgba(255, 68, 68, 0.4);
+    transform: scale(1.1);
+}
+
+/* ── Content area ── */
+.lb-body {
+    padding: 16px 24px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+}
+
+/* ── Tabs ── */
+.lb-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.lb-tab {
+    padding: 8px 16px;
+    border: 1px solid #333;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #888;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+.lb-tab:hover {
+    background: rgba(255, 204, 0, 0.1);
+    color: #ffcc00;
+    border-color: rgba(255, 204, 0, 0.3);
+}
+.lb-tab-active {
+    background: linear-gradient(135deg, #ffcc00, #ff9900) !important;
+    color: #000 !important;
+    border-color: #ffcc00 !important;
+    font-weight: bold;
+    box-shadow: 0 0 12px rgba(255, 204, 0, 0.3);
+}
+
+/* ── Table ── */
+.lb-table-wrap {
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.2);
+}
+.lb-table-wrap::-webkit-scrollbar { width: 6px; }
+.lb-table-wrap::-webkit-scrollbar-track { background: transparent; }
+.lb-table-wrap::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+.lb-table-wrap::-webkit-scrollbar-thumb:hover { background: #666; }
+
+.lb-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.lb-header th {
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffcc00;
+    padding: 12px 10px;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-bottom: 2px solid rgba(255, 204, 0, 0.3);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+.lb-row td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: #bbb;
+    transition: background 0.15s;
+}
+.lb-row:nth-child(even) td {
+    background: rgba(255, 255, 255, 0.015);
+}
+.lb-row:hover td {
+    background: rgba(255, 204, 0, 0.04);
+}
+
+/* Row: you */
+.lb-row-you td {
+    background: rgba(255, 204, 0, 0.08) !important;
+    color: #fff !important;
+    font-weight: 600;
+}
+/* Row: bot */
+.lb-row-bot td { color: #666; }
+
+/* Rank column */
+.lb-rank {
+    font-weight: bold;
+    font-size: 15px;
+    width: 44px;
+    text-align: center;
+}
+.lb-name { font-weight: 600; color: #ddd; }
+
+/* Tags */
+.lb-bot-tag {
+    font-size: 9px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #777;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.lb-you-tag {
+    font-size: 9px;
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    color: #000;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Your rank bar */
+.lb-your-rank {
+    text-align: center;
+    margin-top: 12px;
+    color: #ffcc00;
+    font-size: 13px;
+    padding: 10px;
+    background: rgba(255, 204, 0, 0.06);
+    border: 1px solid rgba(255, 204, 0, 0.15);
+    border-radius: 10px;
+}
+
+/* ── Bottom buttons ── */
+.lb-bottom {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(0, 0, 0, 0.2);
+}
+.lb-btn {
+    padding: 10px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+}
+.lb-btn-back {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.lb-btn-back:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: #fff;
+}
+.lb-btn-clear {
+    background: rgba(204, 34, 34, 0.3);
+    color: #ff6666;
+    border: 1px solid rgba(204, 34, 34, 0.3);
+}
+.lb-btn-clear:hover {
+    background: rgba(204, 34, 34, 0.5);
+    color: #ff4444;
+}
+
+/* ── Empty state ── */
+.lb-empty {
+    text-align: center;
+    padding: 50px 20px;
+    color: #555;
+    font-size: 15px;
+}
+.lb-empty-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+}

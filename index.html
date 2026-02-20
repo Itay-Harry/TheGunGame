@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE GUN GAME</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/leaderboard.css">
+</head>
+<body>
+    <!-- MAIN MENU -->
+    <div id="main-menu" class="screen active">
+        <div class="menu-bg"></div>
+        <div class="menu-content">
+            <h1 class="game-title">THE GUN GAME</h1>
+            <div class="player-info">
+                <div class="player-level">LVL <span id="menu-level">1</span></div>
+                <div class="xp-bar-container">
+                    <div class="xp-bar" id="menu-xp-bar"></div>
+                    <span class="xp-text" id="menu-xp-text">0 / 100 XP</span>
+                </div>
+            </div>
+            <div class="menu-buttons">
+                <button class="btn btn-primary" id="btn-play">▶ PLAY</button>
+                <button class="btn btn-secondary" id="btn-customize">🎨 CUSTOMIZE</button>
+                <button class="btn btn-secondary" id="btn-challenges">📋 CHALLENGES</button>
+                <button class="btn btn-secondary" id="btn-achievements">🏆 ACHIEVEMENTS</button>
+                <button class="btn btn-secondary" id="btn-how-to-play">❓ HOW TO PLAY</button>
+                <button class="btn btn-secondary leaderboard-btn" onclick="openLeaderboard()">🏆 LEADERBOARD</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLAY MENU -->
+    <div id="play-menu" class="screen">
+        <div class="screen-header">
+            <button class="btn-back" id="btn-back-play">← BACK</button>
+            <h2>SELECT GAME</h2>
+        </div>
+        <div class="play-options">
+            <div class="option-group">
+                <h3>GAME MODE</h3>
+                <div class="mode-select">
+                    <button class="mode-btn active" data-mode="ffa">💀 Free-for-All</button>
+                    <button class="mode-btn" data-mode="tdm">👥 Team Deathmatch</button>
+                    <button class="mode-btn" data-mode="ctf">🚩 Capture the Flag</button>
+                </div>
+            </div>
+            <div class="option-group">
+                <h3>PLAYERS</h3>
+                <div class="mode-select">
+                    <button class="mode-btn active" data-players="1p">🎮 Solo</button>
+                    <button class="mode-btn" data-players="2p">🎮🎮 2 Players (Split Screen)</button>
+                </div>
+            </div>
+            <div class="option-group">
+                <h3>MAP</h3>
+                <div class="map-select" id="map-select"></div>
+            </div>
+            <div class="option-group">
+                <h3>BOTS</h3>
+                <div class="bot-options">
+                    <label>Count: <input type="range" id="bot-count" min="0" max="7" value="3"><span id="bot-count-val">3</span></label>
+                    <label>Difficulty:
+                        <select id="bot-difficulty">
+                            <option value="easy">🟢 Easy</option>
+                            <option value="hard" selected>🟡 Hard</option>
+                            <option value="pro">🔴 Pro</option>
+                        </select>
+                    </label>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-large" id="btn-start-game">⚔️ START MATCH</button>
+        </div>
+    </div>
+
+    <!-- CUSTOMIZE SCREEN -->
+    <div id="customize-screen" class="screen">
+        <div class="screen-header">
+            <button class="btn-back" id="btn-back-customize">← BACK</button>
+            <h2>CUSTOMIZE</h2>
+            <div class="currency">💰 <span id="currency-display">0</span></div>
+        </div>
+        <div class="customize-tabs">
+            <button class="tab-btn active" data-tab="skins">👤 Skins</button>
+            <button class="tab-btn" data-tab="weapon-skins">🔫 Weapons</button>
+            <button class="tab-btn" data-tab="emotes">💃 Emotes</button>
+            <button class="tab-btn" data-tab="titles">🏷️ Titles</button>
+        </div>
+        <div class="customize-content" id="customize-content"></div>
+    </div>
+
+    <!-- CHALLENGES SCREEN -->
+    <div id="challenges-screen" class="screen">
+        <div class="screen-header">
+            <button class="btn-back" id="btn-back-challenges">← BACK</button>
+            <h2>📋 DAILY CHALLENGES</h2>
+        </div>
+        <div class="challenges-list" id="challenges-list"></div>
+    </div>
+
+    <!-- ACHIEVEMENTS SCREEN -->
+    <div id="achievements-screen" class="screen">
+        <div class="screen-header">
+            <button class="btn-back" id="btn-back-achievements">← BACK</button>
+            <h2>🏆 ACHIEVEMENTS</h2>
+        </div>
+        <div class="achievements-list" id="achievements-list"></div>
+    </div>
+
+    <!-- HOW TO PLAY SCREEN -->
+    <div id="howtoplay-screen" class="screen">
+        <div class="screen-header">
+            <button class="btn-back" id="btn-back-howtoplay">← BACK</button>
+            <h2>❓ HOW TO PLAY</h2>
+        </div>
+        <div class="howtoplay-content">
+            <div class="control-group">
+                <h3>🏃 Player 1 — Movement & Aiming</h3>
+                <p><b>Move:</b> <kbd>W</kbd>/<kbd>A</kbd>/<kbd>D</kbd> / Arrow Keys</p>
+                <p><b>Jump (Double Jump):</b> <kbd>W</kbd> or <kbd>Space</kbd></p>
+                <p><b>Crouch:</b> <kbd>S</kbd></p>
+                <p><b>Sprint:</b> <kbd>Shift</kbd></p>
+                <p><b>Aim with Mouse:</b> Move mouse to aim</p>
+                <p><b>Aim with Keyboard:</b> Arrow Keys when mouse is still</p>
+            </div>
+            <div class="control-group">
+                <h3>🔫 Player 1 — Combat</h3>
+                <p><kbd>Left Click</kbd> or Hold — Shoot</p>
+                <p><kbd>R</kbd> — Reload</p>
+                <p><kbd>1-5</kbd> — Switch weapons</p>
+            </div>
+            <div class="control-group">
+                <h3>🎮 Player 2 — Movement (Split Screen)</h3>
+                <p><kbd>I</kbd> — Jump / Double Jump</p>
+                <p><kbd>J</kbd> — Move Left</p>
+                <p><kbd>L</kbd> — Move Right</p>
+                <p><kbd>K</kbd> — Crouch</p>
+            </div>
+            <div class="control-group">
+                <h3>🔫 Player 2 — Combat</h3>
+                <p><kbd>O</kbd> — Shoot</p>
+                <p><kbd>P</kbd> — Reload</p>
+                <p><kbd>U</kbd> — Aim Left</p>
+                <p><kbd>I</kbd> + <kbd>O</kbd> — Aim Up</p>
+                <p><kbd>7-9</kbd> — Switch weapons</p>
+                <p>Auto-aims at nearest enemy</p>
+            </div>
+            <div class="control-group">
+                <h3>🎯 Accuracy Tips</h3>
+                <p>• <b>Crouching</b> greatly reduces weapon spread</p>
+                <p>• <b>Standing still</b> is more accurate than moving</p>
+                <p>• <b>Rapid fire</b> increases recoil — pace your shots!</p>
+                <p>• The <b>crosshair</b> shows your current accuracy — smaller = more precise</p>
+            </div>
+            <div class="control-group">
+                <h3>✨ Abilities</h3>
+                <p><b>P1:</b> <kbd>Q</kbd> Dash, <kbd>E</kbd> Shield, <kbd>F</kbd> Invis</p>
+                <p><b>P2:</b> <kbd>N</kbd> Dash, <kbd>M</kbd> Shield, <kbd>,</kbd> Invis</p>
+            </div>
+            <div class="control-group">
+                <h3>🎯 Objective</h3>
+                <p><b>FFA:</b> Most kills wins</p>
+                <p><b>TDM:</b> Team with most kills wins</p>
+                <p><b>CTF:</b> Capture enemy flag 3 times</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="game-screen" class="screen">
+        <canvas id="game-canvas"></canvas>
+        <!-- HUD -->
+        <div id="hud">
+            <div id="hud-top">
+                <div id="hud-timer">3:00</div>
+                <div id="hud-score"></div>
+                <div id="hud-mode-info"></div>
+            </div>
+            <div id="hud-bottom">
+                <div id="hud-health-container">
+                    <div class="hud-label">HP</div>
+                    <div class="hud-bar"><div id="hud-health-bar" class="bar-fill health"></div></div>
+                    <span id="hud-health-text">100</span>
+                </div>
+                <div id="hud-weapon-info">
+                    <div id="hud-weapon-name">Pistol</div>
+                    <div id="hud-ammo">12 / 12</div>
+                </div>
+                <div id="hud-abilities">
+                    <div class="ability" id="ability-dash"><span>Q</span> Dash</div>
+                    <div class="ability" id="ability-shield"><span>E</span> Shield</div>
+                    <div class="ability" id="ability-invis"><span>F</span> Invis</div>
+                </div>
+            </div>
+            <div id="hud-weapons-bar"></div>
+            <div id="hud-killfeed"></div>
+            <div id="hud-hitmarker">✕</div>
+            <div id="hud-damage-overlay"></div>
+            <div id="hud-notifications"></div>
+        </div>
+        <button id="btn-pause" class="btn-pause">⏸</button>
+        <button id="btn-fullscreen" class="btn-fullscreen" title="Toggle Fullscreen">⛶</button>
+    </div>
+
+    <!-- PAUSE MENU -->
+    <div id="pause-menu" class="overlay hidden">
+        <div class="overlay-box">
+            <h2>⏸ PAUSED</h2>
+            <button class="btn btn-primary" id="btn-resume">▶ RESUME</button>
+            <button class="btn btn-danger" id="btn-quit">🚪 QUIT</button>
+        </div>
+    </div>
+
+    <!-- MATCH END SCREEN -->
+    <div id="match-end" class="overlay hidden">
+        <div class="match-end-content">
+            <h1 id="match-result"></h1>
+            <div id="mvp-section"></div>
+            <div id="match-stats"></div>
+            <div id="xp-reward"></div>
+            <div class="match-end-buttons">
+                <button class="btn btn-primary" id="btn-play-again">🔄 PLAY AGAIN</button>
+                <button class="btn btn-secondary" id="btn-to-menu">🏠 MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCOREBOARD (TAB) -->
+    <div id="scoreboard-overlay" class="overlay hidden">
+        <div class="scoreboard-box">
+            <h2>📊 SCOREBOARD</h2>
+            <table id="scoreboard-table">
+                <thead><tr><th>#</th><th>Player</th><th>K</th><th>D</th><th>Score</th></tr></thead>
+                <tbody id="scoreboard-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Fullscreen button on menus -->
+    <button id="btn-fullscreen-menu" class="btn-fullscreen-menu">⛶ Fullscreen</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/sound.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/weapons.js"></script>
+    <script src="js/map.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/bot.js"></script>
+    <script src="js/gamemode.js"></script>
+    <script src="js/progression.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/leaderboard.js"></script>
+    <script src="js/leaderboard-ui.js"></script>
+</body>
+</html>
