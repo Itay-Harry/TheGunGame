@@ -1,17 +1,4 @@
 class UI {
-        buildHostMenu() {
-            // Generate random 6-digit room code
-            const code = Math.floor(100000 + Math.random() * 900000).toString();
-            const codeEl = document.getElementById('host-room-code');
-            if (codeEl) codeEl.textContent = code;
-
-            // Generate QR code (placeholder)
-            const qrEl = document.getElementById('host-qr-code');
-            if (qrEl) {
-                qrEl.innerHTML = `<div style="padding:16px;color:#888;">QR code coming soon</div>`;
-            }
-            // TODO: Add real QR code generation and backend room creation
-        }
     constructor(progression) {
         this.progression = progression;
         this.currentScreen = 'main-menu';
@@ -21,6 +8,7 @@ class UI {
         this.botDifficulty = 'hard';
         this.customizeTab = 'skins';
         this.selectedPlayers = '1p';
+        this.practiceMap = 'aim';
 
         // Callback slots — must be defined here so Object.seal() doesn't block them
         this.onStartGame = null;
@@ -55,13 +43,6 @@ class UI {
     }
 
     setupMenuListeners() {
-        // Host Game menu
-        on('btn-host', () => {
-            this.showScreen('host-menu');
-            this.buildHostMenu && this.buildHostMenu();
-        });
-        on('btn-back-host', () => this.showScreen('main-menu'));
-
         // Helper for button event binding
         const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
 
@@ -76,8 +57,6 @@ class UI {
                 headshotOnly: !!this.practiceHeadshotOnly
             });
         });
-        // Practice menu back button
-        on('btn-back-practice', () => this.showScreen('main-menu'));
 
         // Practice menu option selection (basic, to be expanded)
         const practiceDiffBtns = document.querySelectorAll('#practice-menu .mode-select [data-diff]');

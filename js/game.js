@@ -1,12 +1,56 @@
 class Game {
 		// --- PRACTICE MODE ENTRY POINT ---
 		startPracticeMode(settings) {
-			// For now, just log settings and show a notification
-			console.log('Starting Practice Mode with:', settings);
-			if (this.ui && this.ui.showNotification) {
-				this.ui.showNotification('Practice Mode coming soon! (Settings logged in console)', '#00ccff');
+			// Clear previous game state
+			this.players = [];
+			this.bots = [];
+			this.bullets = [];
+			this.weaponPickups = [];
+			this.localPlayer = null;
+			this.map = null;
+			this.gameMode = null;
+			this.running = true;
+			this.paused = false;
+			this.spectating = false;
+			this.spectateIndex = 0;
+
+			// Load map
+			this.map = MAPS.find(m => m.id === settings.map) || MAPS[0];
+
+			// Create player
+			const player = new Player('PracticePlayer', this.map.spawn, settings);
+			this.localPlayer = player;
+			this.players.push(player);
+
+			// Spawn bots
+			const botCount = settings.botCount || 3;
+			for (let i = 0; i < botCount; i++) {
+				const bot = new Player('Bot' + (i + 1), this.map.spawn, settings);
+				bot.isBot = true;
+				bot.difficulty = settings.botDifficulty || 'easy';
+				this.bots.push(bot);
+				this.players.push(bot);
 			}
-			// TODO: Implement full practice mode logic here
+
+			// Apply settings
+			player.infiniteAmmo = !!settings.infiniteAmmo;
+			player.noRecoil = !!settings.noRecoil;
+			player.headshotOnly = !!settings.headshotOnly;
+
+			// Show HUD
+			if (this.ui) {
+				this.ui.showScreen('game-canvas');
+				this.ui.clearGameHUD();
+			}
+
+			// Start game loop (basic)
+			this.startMatch({
+				mode: 'practice',
+				mapIndex: MAPS.findIndex(m => m.id === settings.map) || 0,
+				botCount: botCount,
+				botDifficulty: settings.botDifficulty || 'easy',
+				players: '1p'
+			});
 		}
 	constructor(canvas, ui, progression) {
 		this.canvas = canvas;

@@ -1,5 +1,6 @@
-
-(function() {
+    // Wire Practice Mode callback
+    // ...existing code...
+    (function() {
     'use strict';
 
     // ========= ANTI-CHEAT: Freeze core prototypes =========
@@ -22,7 +23,10 @@
     const progression = new Progression();
     const canvas = document.getElementById('game-canvas');
     const ui = new UI(progression);
+    window.ui = ui;
     const game = new Game(canvas, ui, progression);
+    // Wire Practice Mode callback
+    ui.onStartPractice = (settings) => game.startPracticeMode(settings);
 
     // ========= ANTI-CHEAT: Seal game objects =========
     // Prevent adding cheat properties or replacing methods at runtime
