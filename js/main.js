@@ -1,8 +1,4 @@
-    // Practice Mode callback
-    ui.onStartPractice = (settings) => {
-        // You will implement full logic later; for now, just start a match with practice settings
-        game.startPracticeMode(settings);
-    };
+
 (function() {
     'use strict';
 

@@ -42,17 +42,21 @@ class UI {
     }
 
     setupMenuListeners() {
-                // Practice Mode start button
-                on('btn-start-practice', () => {
-                    if (this.onStartPractice) this.onStartPractice({
-                        botDifficulty: this.practiceBotDifficulty || 'easy',
-                        weaponMode: this.practiceWeaponMode || 'any',
-                        map: this.practiceMap || 'aim',
-                        infiniteAmmo: !!this.practiceInfiniteAmmo,
-                        noRecoil: !!this.practiceNoRecoil,
-                        headshotOnly: !!this.practiceHeadshotOnly
-                    });
-                });
+
+        // Helper for button event binding
+        const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
+
+        // Practice Mode start button
+        on('btn-start-practice', () => {
+            if (this.onStartPractice) this.onStartPractice({
+                botDifficulty: this.practiceBotDifficulty || 'easy',
+                weaponMode: this.practiceWeaponMode || 'any',
+                map: this.practiceMap || 'aim',
+                infiniteAmmo: !!this.practiceInfiniteAmmo,
+                noRecoil: !!this.practiceNoRecoil,
+                headshotOnly: !!this.practiceHeadshotOnly
+            });
+        });
         // Practice menu back button
         on('btn-back-practice', () => this.showScreen('main-menu'));
 
@@ -95,9 +99,8 @@ class UI {
         const hsOnly = document.getElementById('headshot-only');
         if (hsOnly) hsOnly.onchange = (e) => { this.practiceHeadshotOnly = e.target.checked; };
 
-        // Main menu buttons
-        const on = (id, fn) => { const el = document.getElementById(id); if (el) el.onclick = fn; };
 
+        // Main menu buttons
         on('btn-play', () => { this.showScreen('play-menu'); this.buildMapSelect(); Sound.ensureReady(); });
         on('btn-practice', () => { this.showScreen('practice-menu'); this.buildPracticeMenu && this.buildPracticeMenu(); Sound.ensureReady(); });
         on('btn-customize', () => { this.showScreen('customize-screen'); this.buildCustomize(); Sound.ensureReady(); });
