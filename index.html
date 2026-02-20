@@ -1,3 +1,24 @@
+    <!-- HOST GAME MENU -->
+    <div id="host-menu" class="screen">
+        <div class="screen-header">
+            <button class="btn-back" id="btn-back-host">← BACK</button>
+            <h2>👑 HOST GAME</h2>
+        </div>
+        <div class="play-options">
+            <div class="option-group">
+                <h3>Room Code</h3>
+                <div id="host-room-code" class="host-room-code">------</div>
+                <div id="host-qr-code" class="host-qr-code"></div>
+            </div>
+            <div class="option-group">
+                <h3>Room Settings</h3>
+                <label>Max Players: <input type="number" id="host-max-players" min="2" max="16" value="8"></label>
+                <label><input type="checkbox" id="host-lock-room"> Lock Room</label>
+                <label><input type="checkbox" id="host-add-bots"> Add Bots</label>
+            </div>
+            <button class="btn btn-primary btn-large" id="btn-create-room">Create Room</button>
+        </div>
+    </div>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,6 +83,7 @@
             <div class="menu-buttons">
                 <button class="btn btn-primary" id="btn-play">▶ PLAY</button>
                 <button class="btn btn-primary" id="btn-practice">🎯 PRACTICE MODE</button>
+                <button class="btn btn-primary" id="btn-host">👑 HOST GAME</button>
                 <button class="btn btn-secondary" id="btn-customize">🎨 CUSTOMIZE</button>
                 <button class="btn btn-secondary" id="btn-challenges">📋 CHALLENGES</button>
                 <button class="btn btn-secondary" id="btn-achievements">🏆 ACHIEVEMENTS</button>
